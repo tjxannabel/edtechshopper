@@ -5,149 +5,489 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Which EdTech Shopper Are You?</title>
   <style>
+    /* Import a playful, rounded font like the poster */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #fef6ff, #e8f0ff);
+      font-family: 'Nunito', sans-serif;
+      /* Gradient inspired by the poster's blue sky and pink/orange clouds */
+      background: linear-gradient(160deg, #fddde6 0%, #d4f0ff 100%);
       margin: 0;
-      padding: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      box-sizing: border-box;
     }
-    .quiz-container {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      padding: 30px;
-      max-width: 600px;
-      width: 90%;
+    
+    /* Utility class to hide elements */
+    .hidden {
+      display: none !important;
+    }
+    
+    /* --- Intro Screen Styles (NEW) --- */
+    
+    #intro-screen {
+      /* Main box color from the poster */
+      background: #f0fdfa; /* Light mint-teal */
+      border-radius: 32px; /* Bubbly corners */
+      /* Soft shadow inspired by the poster's purple */
+      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.2);
+      border: 2px solid #ffffff;
+      padding: 32px 24px;
+      max-width: 500px;
+      width: 100%;
       text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.5s ease;
     }
-    .question {
-      font-size: 1.2em;
+
+    .intro-avatar {
+      width: 130px;
+      height: 110px;
+      background: #a7f3d0; /* Mint color from poster box */
+      border-radius: 25px;
+      font-size: 3.5rem;
+      color: #5b21b6; /* Deep purple */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    
+    /* NEW: Style for the image if it's used */
+    .intro-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 25px; /* Match parent's rounding */
+    }
+    
+    #intro-screen h1 {
+      /* "11:11" style */
+      font-size: 4.5rem;
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: -2px;
+      background: linear-gradient(90deg, #a78bfa 0%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    #intro-screen h2 {
+      /* "EDTECH SUPER SALE!" style */
+      color: #5b21b6; /* Deep purple */
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin: 0px 0 4px 0;
+    }
+    
+    #intro-screen p {
+      /* "FIND YOUR SHOPPING STYLE!" style */
+      color: #7c3aed; /* Medium purple */
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0 0 25px 0;
+      font-weight: 700;
+    }
+    
+    .start-button {
+      /* "START QUIZ!" button style from poster */
+      background: linear-gradient(90deg, #a78bfa 0%, #7c3aed 100%);
+      border: none;
+      border-radius: 50px; /* Pill shape */
+      padding: 14px 30px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff; /* White text */
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 20px rgba(167, 139, 250, 0.4);
+    }
+    
+    .start-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(167, 139, 250, 0.5);
+    }
+    
+    .start-button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 20px rgba(167, 139, 250, 0.4);
+    }
+
+    /* --- Quiz Screen Styles (Existing) --- */
+
+    .story-container {
+      /* Main box color from the poster */
+      background: #f0fdfa; /* Light mint-teal */
+      border-radius: 32px; /* Bubbly corners */
+      /* Soft shadow inspired by the poster's purple */
+      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.2);
+      border: 2px solid #ffffff;
+      padding: 24px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    /* Header with title and intro text */
+    .header-content {
+      border-bottom: 2px dashed #a5f3fc; /* Light teal dash */
+      padding-bottom: 20px;
       margin-bottom: 20px;
     }
+
+    .header-content h1 {
+      color: #5b21b6; /* Deep purple */
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    
+    .header-content p {
+      color: #7c3aed; /* Medium purple */
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Progress Bar for the "journey" feel */
+    .progress-bar-container {
+      width: 100%;
+      background: #f3e8ff; /* Light purple */
+      border-radius: 30px;
+      height: 12px;
+      margin-bottom: 25px;
+      overflow: hidden;
+      border: 2px solid #ede9fe;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      /* Gradient inspired by the "11:11" text */
+      background: linear-gradient(90deg, #facc15 0%, #fb923c 100%);
+      border-radius: 30px;
+      transition: width 0.4s ease;
+    }
+
+    /* Quiz question styling */
+    .question {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #6d28d9; /* Vibrant purple */
+      margin-bottom: 25px;
+      line-height: 1.5;
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* Answer buttons styling */
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: fadeIn 0.5s ease 0.1s;
+      animation-fill-mode: both;
+    }
+
     .answers button {
-      background: #f3f3ff;
-      border: none;
-      border-radius: 12px;
-      padding: 15px 20px;
-      margin: 8px 0;
+      background: #faf5ff; /* Lightest purple */
+      border: 2px solid #e9d5ff; /* Light purple border */
+      border-radius: 20px; /* Bubbly buttons */
+      padding: 16px;
       width: 100%;
       cursor: pointer;
-      font-size: 1em;
-      transition: 0.3s;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #5b21b6; /* Deep purple text */
+      transition: all 0.2s ease;
+      text-align: left;
+      line-height: 1.5;
+      box-shadow: 0 2px 4px rgba(167, 139, 250, 0.1);
     }
+
     .answers button:hover {
-      background: #d7e3ff;
+      background: #f3e8ff;
+      border-color: #c084fc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(192, 132, 252, 0.3);
     }
-    .result {
-      font-size: 1.3em;
-      margin-top: 30px;
-      animation: fadeIn 1s ease;
+    
+    .answers button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(167, 139, 250, 0.1);
     }
+
+    /* Result "Card" Styling */
+    .result-card {
+      display: none; /* Hidden by default, shown by JS */
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.8s ease;
+    }
+    
+    /* The cute avatar face! */
+    .result-avatar {
+      font-size: 3.5rem;
+      margin-bottom: 0px;
+      color: #5b21b6; /* Deep purple */
+      animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .result-card h2 {
+      font-size: 1.75rem;
+      color: #ffffff;
+      margin: 16px 0;
+      padding: 16px 24px;
+      border-radius: 20px;
+      font-weight: 800;
+      border: 3px solid rgba(255, 255, 255, 0.7);
+    }
+    
+    .result-card p {
+      font-size: 1.1rem;
+      color: #6d28d9; /* Vibrant purple text */
+      line-height: 1.7;
+      margin: 10px 0 0 0;
+      padding: 0 10px;
+      font-weight: 700;
+    }
+
+    /* Style for the new 'Try Again' button */
+    .retry-button {
+      /* Gradient from "11:11" text */
+      background: linear-gradient(90deg, #facc15 0%, #fb923c 100%);
+      border: none;
+      border-radius: 20px;
+      padding: 14px 28px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #5b21b6; /* Deep purple text */
+      transition: all 0.2s ease;
+      margin-top: 25px;
+      box-shadow: 0 4px 15px rgba(251, 146, 60, 0.3);
+    }
+    
+    .retry-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(251, 146, 60, 0.4);
+    }
+
+    .retry-button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 15px rgba(251, 146, 60, 0.3);
+    }
+
+    /* Custom styles for each result card, pastel theme */
+    #result-moe h2 { background-color: #a78bfa; } /* Purple */
+    #result-convenience h2 { background-color: #6ee7b7; } /* Mint */
+    #result-more h2 { background-color: #f472b6; } /* Pink */
+    /* Gradient for the hybrid result */
+    #result-hybrid h2 { background: linear-gradient(90deg, #a78bfa, #f472b6); }
+
+
+    /* Animations */
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(10px);}
       to {opacity: 1; transform: translateY(0);}
     }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>Which EdTech Shopper Are You?</h1>
-    <p>🕚 It’s 11:11 — and the biggest <b>EdTech sale of the year</b> has just dropped! Your phone is buzzing with flash deals promising to revolutionise your classroom. With your cart empty and endless possibilities ahead, how you shop reveals your <b>primary shopping habit</b> — and your inner One Stop Hub personality. 🛍️</p>
-    <div id="quiz"></div>
-    <div id="result" class="result"></div>
+
+  <!-- NEW: Intro Screen, styled to look like the poster -->
+  <div id="intro-screen">
+    <div class="intro-avatar" id="intro-avatar-container">( ᴗ )</div>
+    <h1>11:11</h1>
+    <h2>EDTECH SUPER SALE!</h2>
+    <p>FIND YOUR SHOPPING STYLE!</p>
+    <button id="start-quiz-button" class="start-button">
+      START QUIZ! &#9200; <!-- Alarm clock icon -->
+    </button>
+  </div>
+  
+  <!-- EXISTING: Quiz Screen, now hidden by default -->
+  <div id="quiz-screen" class="hidden">
+    <div class="story-container">
+    
+      <!-- This div holds the header and the quiz -->
+      <div id="quiz-content">
+        <div class="header-content">
+          <!-- Title inspired by poster -->
+          <h1>11:11 EdTech Super Sale!</h1>
+          <p>Find your shopping style! 🛍️ How you shop reveals your inner personality.</p>
+        </div>
+  
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <!-- Quiz question and answers will be injected here by JS -->
+        <div id="quiz-area">
+          <div id="question" class="question"></div>
+          <div id="answers" class="answers"></div>
+        </div>
+      </div>
+  
+      <!-- This div holds the final result "card" -->
+      <div id="result" class="result-card"></div>
+      
+    </div>
   </div>
 
   <script>
+    // --- NEW: Set this URL to use an image for the intro avatar ---
+    const introImageUrl = ""; // Example: "https://placehold.co/130x110/a7f3d0/5b21b6?text=Hi!"
+    const defaultAvatarHTML = '( ᴗ )';
+
+    // --- NEW: Get references to the screens ---
+    const introScreen = document.getElementById('intro-screen');
+    const quizScreen = document.getElementById('quiz-screen');
+    const startButton = document.getElementById('start-quiz-button');
+  
+    // --- EXISTING: Quiz variables ---
     const quizData = [
       {
-        question: "You’re shopping for an EdTech tool for next term’s lessons. What do you do first?",
+        question: "You’re shopping for EdTech tool to use in your next term’s lessons 📱💥 What do you do first?",
         answers: {
-          moe: "Check out MOE library for those golden lesson treasures.",
-          convenience: "Scout for tools that work smoothly within SLS.",
-          more: "Go wild browsing for the most exciting EdTech tools."
+          moe: "Check out MOE library for those golden lesson treasures that tick all the curriculum boxes",
+          convenience: "Scout for lesson tools that work smoothly within SLS",
+          more: "Go wild browsing everywhere for the most exciting EdTech tools"
         }
       },
       {
         question: "Oooh, a shiny new teaching tool on sale ✨ What pops into your head first?",
         answers: {
-          moe: "Is this pedagogically sound and MOE-approved?",
-          convenience: "Can my students use this without hopping out of SLS?",
-          more: "This looks amazing! I hope I’m first to try it!"
+          moe: "Is this pedagogically sound and does it align with MOE curriculum standards?",
+          convenience: "Sweet! Can my students use this without hopping out of SLS?",
+          more: "This looks amazing! I hope I’m one of the first to try it!"
         }
       },
       {
-        question: "AI assistant bonanza! 🤖 Which one wins your heart?",
+        question: "AI ASSISTANT BONANZA! 🤖 Smart teaching helper tools promise to be your ultimate classroom sidekick. Which wins your heart?",
         answers: {
-          moe: "AI that plays by MOE rules and keeps my data safe.",
-          convenience: "AI that can be embedded in SLS to free up class time.",
-          more: "AI superstars from every platform – I want one for each task!"
+          moe: "AI sidekicks that play by MOE rules and keep my data cozy and safe",
+          convenience: "AI assistants that can be embedded in SLS to free up class time",
+          more: "AI superstars from different platforms – I want one for every task!"
         }
       },
       {
-        question: "Collaboration revolution alert! 🚀 What’s calling your name?",
+        question: "Collaboration revolution alert! 🚀 Your students need the ultimate group project experience. What’s calling your name?",
         answers: {
-          moe: "SLS tools that support every step from brainstorm to final presentation.",
-          convenience: "Collaboration tools that nestle perfectly within SLS.",
-          more: "A dynamic mix of apps – ideation, project management, presentation – I use them all!"
+          moe: "SLS tools to support everything from brainstorming to final presentation",
+          convenience: "Collaboration tools that nestle perfectly within SLS for smooth teamwork and execution",
+          more: "A dynamic mix of apps for ideation, project management and presentation – I use them all!"
         }
       },
       {
-        question: "Multimedia deals! 🎬 What do you grab?",
+        question: "Multimedia deals! 🎬 Time to transform learning with visual simulations. What do you grab?",
         answers: {
-          moe: "Trusted media gems from the MOE Library.",
-          convenience: "Third-party visual goodies that complement SLS lessons.",
-          more: "A little bit of everything! I love to customise."
+          moe: "Trusted media gems from MOE library & Community Gallery that slot perfectly into lessons every time!",
+          convenience: "Third-party visual goodies that complement SLS lessons for a comprehensive learning experience all in place!",
+          more: "A little bit of everything! I love to customise to suit my lesson needs."
         }
       },
       {
-        question: "Gamified lesson bundles! 🎯 What grabs your attention?",
+        question: "MEGA DEAL: Gamified lesson bundles promise 300% more participation! 🎯 What grabs your attention?",
         answers: {
-          moe: "SLS gamification features that track student progress.",
-          convenience: "External tools that blend perfectly into SLS.",
-          more: "Trending gamification tools that everyone’s talking about!"
+          moe: "SLS customisable gamification features that track student progress seamlessly",
+          convenience: "External tools that provide unique gamified learning experience while maintaining my lesson flow on SLS to capture learning data",
+          more: "Trending gamification tools that are the talk-of-the-town!"
         }
       },
       {
-        question: "Feedback revolution! 💫 Which bundle tempts you?",
+        question: "Feedback revolution time! 💫 Transform how you respond to student work. Which exclusive bundle tempts you?",
         answers: {
-          moe: "SLS AI feedback wizards using my trusted rubrics.",
-          convenience: "Feedback tools that fit neatly into SLS.",
-          more: "A mega feedback bundle for every platform imaginable."
+          moe: "SLS AI feedback wizards that deliver personalised responses using my trusted rubrics",
+          convenience: "Feedback tools that fit neatly into SLS lessons, providing amazing marking convenience and quick data insights",
+          more: "The mega feedback bundle for every possible assignment, so I'm always equipped with the best feedback companion!"
         }
       },
       {
         question: "FLASH DEAL: Assessment tools at 70% off! Which do you add to cart?",
         answers: {
-          moe: "Curriculum-aligned assessment options for meaningful insights.",
-          convenience: "Quick and convenient assessment tools through SLS.",
-          more: "The ultimate assessment collection from mini quizzes to mega tests."
+          moe: "Assessment options that are curriculum-aligned and pedagogically sound to capture meaningful learning insights!",
+          convenience: "Quick and convenient assessment tools through SLS, providing bite-sized checks",
+          more: "The ultimate assessment collection from mini quizzes to mega tests"
         }
       }
     ];
 
-    const quizContainer = document.getElementById('quiz');
-    const resultContainer = document.getElementById('result');
-
+    const scores = { moe: 0, convenience: 0, more: 0 };
     let currentQuestion = 0;
-    let scores = { moe: 0, convenience: 0, more: 0 };
+
+    const quizContentContainer = document.getElementById('quiz-content');
+    const questionEl = document.getElementById('question');
+    const answersEl = document.getElementById('answers');
+    const resultContainer = document.getElementById('result');
+    const progressBar = document.getElementById('progress-bar');
+    const totalQuestions = quizData.length;
+    
+    // --- NEW: Function to setup intro avatar ---
+    function setupIntroAvatar() {
+      const avatarContainer = document.getElementById('intro-avatar-container');
+      if (introImageUrl) {
+        avatarContainer.innerHTML = `<img src="${introImageUrl}" alt="Intro Avatar">`;
+        // Remove padding so image fills the container
+        avatarContainer.style.padding = '0';
+      } else {
+        avatarContainer.innerHTML = defaultAvatarHTML;
+        // Reset padding to CSS default
+        avatarContainer.style.padding = ''; 
+      }
+    }
+
+    // --- NEW: Setup avatar on page load ---
+    document.addEventListener('DOMContentLoaded', setupIntroAvatar);
+
+    // --- NEW: Function to start the quiz ---
+    function startQuiz() {
+      introScreen.classList.add('hidden');
+      quizScreen.classList.remove('hidden');
+      // Load the first question
+      loadQuestion();
+    }
+    
+    // --- NEW: Event listener for the start button ---
+    startButton.addEventListener('click', startQuiz);
 
     function loadQuestion() {
-      if (currentQuestion < quizData.length) {
-        const q = quizData[currentQuestion];
-        quizContainer.innerHTML = `
-          <div class='question'>${q.question}</div>
-          <div class='answers'>
-            <button onclick="selectAnswer('moe')">💙 ${q.answers.moe}</button>
-            <button onclick="selectAnswer('convenience')">🎯 ${q.answers.convenience}</button>
-            <button onclick="selectAnswer('more')">🛍️ ${q.answers.more}</button>
-          </div>
-        `;
+      // Update progress bar
+      progressBar.style.width = `${((currentQuestion) / totalQuestions) * 100}%`;
+
+      if (currentQuestion < totalQuestions) {
+        const currentQuizData = quizData[currentQuestion];
+        questionEl.innerText = currentQuizData.question;
+        answersEl.innerHTML = ''; // Clear previous answers
+
+        // Create a button for each answer
+        for (const type in currentQuizData.answers) {
+          const button = document.createElement('button');
+          button.innerText = currentQuizData.answers[type];
+          button.onclick = () => selectAnswer(type);
+          answersEl.appendChild(button);
+        }
       } else {
+        // End of quiz
+        progressBar.style.width = '100%';
         showResult();
       }
     }
@@ -155,37 +495,86 @@
     function selectAnswer(type) {
       scores[type]++;
       currentQuestion++;
-      loadQuestion();
+      // Add a slight delay for a smoother transition
+      setTimeout(loadQuestion, 300);
     }
 
     function showResult() {
       const maxScore = Math.max(scores.moe, scores.convenience, scores.more);
+      // Find all categories with the max score
       const topCategories = Object.keys(scores).filter(k => scores[k] === maxScore);
 
+      let resultId = '';
       let title = '';
       let message = '';
+      let avatar = '( ᴗ )'; // Default cute face
 
-      if (topCategories.length === 1) {
-        if (topCategories[0] === 'moe') {
+      if (topCategories.length > 1) {
+        // Hybrid result if scores are tied
+        resultId = 'hybrid';
+        title = '💫 You’re a Hybrid Shopper!';
+        message = 'You blend the best of all worlds – balancing trusted SLS tools, seamless integrations, and your adventurous EdTech spirit!';
+        avatar = '(b ᵔ▽ᵔ)b'; // A different face for fun
+      } else {
+        // Single dominant result
+        const topCat = topCategories[0];
+        if (topCat === 'moe') {
+          resultId = 'moe';
           title = '💙 You’re the “I Love MOE” Shopper!';
           message = 'You love trusted, curriculum-aligned gems and the safety of MOE-endorsed tools!';
-        } else if (topCategories[0] === 'convenience') {
+          avatar = '(⁀ ᗢ ⁀)'; // Happy cat face
+        } else if (topCat === 'convenience') {
+          resultId = 'convenience';
           title = '🎯 You’re the “I Want Convenience!” Shopper!';
           message = 'You thrive when everything just works seamlessly through SLS – efficiency is your superpower!';
+          avatar = '(⌐■ ᴗ ■)'; // Cool face
         } else {
+          resultId = 'more';
           title = '🛍️ You’re the “More, More, More” Shopper!';
           message = 'You love exploring every corner of EdTech, building your own vibrant ecosystem with SLS as your base!';
+          avatar = '(☆ ▽ ☆)'; // Star eyes
         }
-      } else {
-        title = '💫 You’re a Hybrid Shopper!';
-        message = 'You blend the best of all worlds – balancing trusted SLS tools, seamless integrations, and your adventurous EdTech spirit! You’re the definition of an One Stop Hub educator.';
       }
-
-      quizContainer.innerHTML = '';
-      resultContainer.innerHTML = `<h2>${title}</h2><p>${message}</p>`;
+      
+      // Hide quiz and show result
+      quizContentContainer.style.display = 'none';
+      
+      // Updated result HTML to include the avatar and the retry button
+      resultContainer.innerHTML = `
+        <div id="result-${resultId}">
+          <div class="result-avatar">${avatar}</div>
+          <h2>${title}</h2>
+          <p>${message}</p>
+        </div>
+        <button class="retry-button" onclick="restartQuiz()">Try Again! ↻</button>
+      `;
+      resultContainer.style.display = 'flex';
     }
 
-    loadQuestion();
+    // Function to restart the quiz
+    function restartQuiz() {
+      // Reset scores and question count
+      scores.moe = 0;
+      scores.convenience = 0;
+      scores.more = 0;
+      currentQuestion = 0;
+      
+      // Reset progress bar
+      progressBar.style.width = '0%';
+
+      // NEW: Reset intro avatar
+      setupIntroAvatar();
+
+      // Hide quiz screen and show intro screen
+      resultContainer.style.display = 'none'; // Hide result card
+      quizContentContainer.style.display = 'block'; // Show the quiz content again (for next time)
+      quizScreen.classList.add('hidden');
+      introScreen.classList.remove('hidden');
+    }
+
+    // We no longer start the quiz automatically, we wait for the button click.
+    // loadQuestion();
   </script>
 </body>
 </html>
+
