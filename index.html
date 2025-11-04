@@ -8,18 +8,22 @@
     /* Import a playful, rounded font like the poster */
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
 
+    /* NEW: Apply box-sizing to all elements for better mobile layout */
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Nunito', sans-serif;
       /* Gradient inspired by the poster's blue sky and pink/orange clouds */
       background: linear-gradient(160deg, #fddde6 0%, #d4f0ff 100%);
       margin: 0;
-      padding: 20px;
+      padding: 20px; /* Use padding on body to create space around the boxes */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      box-sizing: border-box;
     }
     
     /* Utility class to hide elements */
@@ -38,7 +42,7 @@
       border: 2px solid #ffffff;
       padding: 32px 24px;
       max-width: 500px;
-      width: 100%;
+      width: 100%; /* Will fill available space up to max-width */
       text-align: center;
       overflow: hidden;
       display: flex;
@@ -133,7 +137,7 @@
       border: 2px solid #ffffff;
       padding: 24px;
       max-width: 500px;
-      width: 100%;
+      width: 100%; /* Will fill available space up to max-width */
       text-align: center;
       overflow: hidden;
       display: flex;
