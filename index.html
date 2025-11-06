@@ -325,10 +325,27 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(251, 146, 60, 0.4);
     }
-
-    .retry-button:active {
-      transform: translateY(0);
-      box-shadow: 0 4px 15px rgba(251, 146, 60, 0.3);
+    
+    /* --- NEW: Style for "Meet the Other Shoppers!" button --- */
+    .other-shoppers-button {
+      background: linear-gradient(90deg, #a78bfa 0%, #7c3aed 100%);
+      border: none;
+      border-radius: 20px;
+      padding: 14px 28px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      margin-top: 15px; /* Spacing between buttons */
+      box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .other-shoppers-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(167, 139, 250, 0.5);
     }
 
     /* Custom styles for each result card, pastel theme */
@@ -338,6 +355,98 @@
     /* Gradient for the hybrid result */
     #result-hybrid h2 { background: linear-gradient(90deg, #a78bfa, #f472b6); }
 
+    /* --- NEW: "All Shoppers" Screen Styles --- */
+    #all-shoppers-screen {
+      display: none; /* Hidden by default */
+      width: 100%;
+      animation: fadeIn 0.5s ease;
+    }
+
+    #all-shoppers-screen h1 {
+      color: #5b21b6; /* Deep purple */
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 25px;
+      border-bottom: 2px dashed #a5f3fc;
+      padding-bottom: 20px;
+    }
+    
+    #all-shoppers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 2 columns */
+      gap: 15px;
+    }
+    
+    .mini-card {
+      background: #faf5ff; /* Lightest purple */
+      border: 2px solid #e9d5ff; /* Light purple border */
+      border-radius: 20px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(167, 139, 250, 0.1);
+    }
+    
+    .mini-card-avatar {
+      width: 100px; /* Smaller than result, larger than old grid */
+      height: 100px;
+      border-radius: 15px; /* Rounded square */
+      overflow: hidden;
+      margin-bottom: 10px;
+      border: 3px solid white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .mini-card-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .mini-card h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #6d28d9;
+      margin: 0 0 5px 0;
+    }
+    
+    .mini-card p {
+      font-size: 0.85rem;
+      color: #7c3aed;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
+      font-weight: 400;
+    }
+
+    /* Responsive adjustment for the 2-col grid on small screens */
+    @media (max-width: 450px) {
+      #all-shoppers-grid {
+        grid-template-columns: 1fr; /* Stack on top of each other */
+      }
+    }
+    
+    /* Style for the "Back" button (reuse .retry-button) */
+    .back-button {
+      background: linear-gradient(90deg, #facc15 0%, #fb923c 100%);
+      border: none;
+      border-radius: 20px;
+      padding: 14px 28px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #5b21b6;
+      transition: all 0.2s ease;
+      margin-top: 25px;
+      box-shadow: 0 4px 15px rgba(251, 146, 60, 0.3);
+    }
+    
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(251, 146, 60, 0.4);
+    }
 
     /* Animations */
     @keyframes fadeIn {
@@ -417,12 +526,52 @@
       <!-- This div holds the final result "card" -->
       <div id="result" class="result-card"></div>
       
+      <!-- --- NEW: This div holds the "All Shoppers" page --- -->
+      <div id="all-shoppers-screen">
+        <h1>Meet All the Shoppers!</h1>
+        <div id="all-shoppers-grid">
+          <!-- Content will be injected by JavaScript -->
+        </div>
+        <button class="back-button" onclick="backToResult()">Back to My Result</button>
+      </div>
+      
     </div>
   </div>
 
   <script>
+    // --- NEW: Master list of all shopper types ---
+    const allShopperTypes = {
+      moe: {
+        id: 'moe',
+        title: '💙 You’re the “I Love MOE” Shopper!',
+        message: 'You love trusted, curriculum-aligned gems and the safety of MOE-endorsed tools!',
+        avatar: 'safe-shopper-cat.png',
+        shortTitle: '“I Love MOE” Shopper'
+      },
+      convenience: {
+        id: 'convenience',
+        title: '🎯 You’re the “I Want Convenience!” Shopper!',
+        message: 'You thrive when everything just works seamlessly through SLS – efficiency is your superpower!',
+        avatar: 'convenience-cat.png',
+        shortTitle: '“Convenience” Shopper'
+      },
+      more: {
+        id: 'more',
+        title: '🛍️ You’re the “More, More, More” Shopper!',
+        message: 'You love exploring every corner of EdTech, building your own vibrant EdTech ecosystem!',
+        avatar: 'more-more-more-cat.png',
+        shortTitle: '“More, More, More” Shopper'
+      },
+      hybrid: {
+        id: 'hybrid',
+        title: '💫 You’re the Mega Bundle Shopper!',
+        message: 'You blend the best of all worlds – balancing trusted SLS tools, seamless integrations, and your adventurous EdTech spirit!',
+        avatar: 'bundle-boss-cat.png',
+        shortTitle: 'Mega Bundle Shopper'
+      }
+    };
+
     // --- NEW: Set this URL to use an image for the intro avatar ---
-    // You can use 'safe-shopper-cat.png' here if you want!
     const introImageUrl = "intro-cat.png"; 
     const defaultAvatarHTML = '( ᴗ )';
 
@@ -509,6 +658,10 @@
     const progressBar = document.getElementById('progress-bar');
     const totalQuestions = quizData.length;
     
+    // --- NEW: Reference to the "All Shoppers" screen ---
+    const allShoppersContainer = document.getElementById('all-shoppers-screen');
+    const allShoppersGrid = document.getElementById('all-shoppers-grid');
+    
     // --- NEW: Function to setup intro avatar ---
     function setupIntroAvatar() {
       const avatarContainer = document.getElementById('intro-avatar-container');
@@ -589,72 +742,80 @@
       const topCategories = Object.keys(scores).filter(k => scores[k] === maxScore);
 
       let resultId = '';
-      let title = '';
-      let message = '';
-      let avatar = ''; // Default avatar is now an image path
 
       if (topCategories.length > 1) {
-        // Hybrid result if scores are tied
         resultId = 'hybrid';
-        title = '💫 You’re the Mega Bundle Shopper!';
-        message = 'You blend the best of all worlds – balancing trusted SLS tools, seamless integrations, and your adventurous EdTech spirit!';
-        avatar = 'bundle-boss-cat.png'; // <-- EDITED: Your cat image
       } else {
-        // Single dominant result
-        const topCat = topCategories[0];
-        if (topCat === 'moe') {
-          resultId = 'moe';
-          title = '💙 You’re the “I Love MOE” Shopper!';
-          message = 'You love trusted, curriculum-aligned gems and the safety of MOE-endorsed tools!';
-          avatar = 'safe-shopper-cat.png'; // <-- EDITED: Your cat image
-        } else if (topCat === 'convenience') {
-          resultId = 'convenience';
-          title = '🎯 You’re the “I Want Convenience!” Shopper!';
-          message = 'You thrive when everything just works seamlessly through SLS – efficiency is your superpower!';
-          avatar = 'convenience-cat.png'; // <-- EDITED: Your cat image
-        } else {
-          resultId = 'more';
-          title = '🛍️ You’re the “More, More, More” Shopper!';
-          message = 'You love exploring every corner of EdTech, building your own vibrant EdTech ecosystem!';
-          avatar = 'more-more-more-cat.png'; // <-- EDITED: Your cat image
-        }
+        resultId = topCategories[0];
       }
+      
+      // --- NEW: Get the user's result data from the master list ---
+      const userResult = allShopperTypes[resultId];
       
       // Hide quiz and show result
       quizContentContainer.style.display = 'none';
       
-      // Updated result HTML to use an <img> tag for the avatar
+      // --- UPDATED: Build HTML with the new button ---
       resultContainer.innerHTML = `
-        <div id="result-${resultId}">
+        <div id="result-${userResult.id}">
           <div class="result-avatar">
-            <img src="${avatar}" alt="${title}">
+            <img src="${userResult.avatar}" alt="${userResult.title}">
           </div>
-          <h2>${title}</h2>
-          <p>${message}</p>
+          <h2>${userResult.title}</h2>
+          <p>${userResult.message}</p>
         </div>
         <button class="retry-button" onclick="restartQuiz()">Try Again! ↻</button>
+        <button class="other-shoppers-button" onclick="showAllShoppers()">Meet the Other Shoppers!</button>
       `;
 
-      // --- NEW: Code to add floating animations ---
-      const resultCardDiv = document.getElementById(`result-${resultId}`);
+      // --- NEW: Pre-build the "All Shoppers" screen ---
+      let allShoppersHTML = '';
+      for (const key in allShopperTypes) {
+        const shopper = allShopperTypes[key];
+        allShoppersHTML += `
+          <div class="mini-card" id="mini-card-${shopper.id}">
+            <div class="mini-card-avatar">
+              <img src="${shopper.avatar}" alt="${shopper.shortTitle}">
+            </div>
+            <h4>${shopper.shortTitle}</h4>
+            <p>${shopper.message}</p>
+          </div>
+        `;
+      }
+      allShoppersGrid.innerHTML = allShoppersHTML;
+
+
+      // --- Code to add floating animations ---
+      const resultCardDiv = document.getElementById(`result-${userResult.id}`);
       if (resultCardDiv) {
         for (let i = 0; i < 15; i++) {
           const item = document.createElement('div');
           item.className = 'floating-item';
           
-          // Use shopping bag for 'more' result, sparkles for others
           item.innerText = (resultId === 'more') ? '🛍️' : '✨';
 
           item.style.left = `${Math.random() * 100}%`;
           item.style.animationDelay = `${Math.random() * 5}s`;
           item.style.animationDuration = `${5 + Math.random() * 5}s`;
           
-          // Append to the result-card container
+          // Append to the main result-card container
           resultContainer.appendChild(item);
         }
       }
-      // --- End of new animation code ---
+      // --- End of animation code ---
 
+      resultContainer.style.display = 'flex';
+    }
+    
+    // --- NEW: Function to show the "All Shoppers" page ---
+    function showAllShoppers() {
+      resultContainer.style.display = 'none';
+      allShoppersContainer.style.display = 'block';
+    }
+    
+    // --- NEW: Function to go back to the user's result ---
+    function backToResult() {
+      allShoppersContainer.style.display = 'none';
       resultContainer.style.display = 'flex';
     }
 
@@ -674,7 +835,9 @@
 
       // Hide quiz screen and show intro screen
       resultContainer.style.display = 'none'; // Hide result card
+      allShoppersContainer.style.display = 'none'; // <-- NEW: Hide all shoppers screen
       resultContainer.innerHTML = ''; // Clear old results and animations
+      
       quizContentContainer.style.display = 'block'; // Show the quiz content again (for next time)
       quizScreen.classList.add('hidden');
       introScreen.classList.remove('hidden');
@@ -692,9 +855,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
