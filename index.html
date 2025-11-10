@@ -217,8 +217,7 @@
       animation: fadeIn 0.8s ease;
       position: relative;
       /* For animations */
-      overflow: hidden;
-      /* To contain animations */
+      /* overflow: hidden;  <-- REMOVED THIS LINE. This was cutting off the avatar. */
       width: 100%;
       /* Ensure it fits */
     }
@@ -237,8 +236,8 @@
       background: var(--color-white);
       /* Avatar will sit on top */
       position: relative;
-      margin-top: 50px;
-      /* Make space for avatar */
+      margin-top: 51px;
+      /* Make space for avatar (Changed from 50px to 51px) */
     }
 
     .result-avatar {
