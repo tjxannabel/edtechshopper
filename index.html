@@ -419,6 +419,16 @@
       line-height: 1.3;
     }
 
+    /* --- NEW: Style for mini-card description --- */
+    .mini-card p {
+      font-size: 0.85rem;
+      /* Make it small */
+      color: var(--color-text);
+      line-height: 1.4;
+      margin-top: 8px;
+      /* Add some space */
+    }
+
     /* Back Button (styled like retry button) */
     .back-button {
       font-family: var(--font-family-main);
@@ -797,6 +807,7 @@
               <img src="${shopper.avatar}" alt="${shopper.shortTitle}">
             </div>
             <h3>${shopper.shortTitle}</h3>
+            <p>${shopper.message}</p>
           </div>
         `;
       }
