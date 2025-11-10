@@ -209,6 +209,8 @@
     }
 
     /* --- Result "Card" Styling --- */
+    /* This outer container holds the result card and buttons */
+    /* It is NOT the visual card itself */
     .result-card {
       display: none;
       /* Hidden by default */
@@ -216,8 +218,7 @@
       align-items: center;
       animation: fadeIn 0.8s ease;
       position: relative;
-      /* For animations */
-      /* overflow: hidden;  <-- REMOVED THIS LINE. This was cutting off the avatar. */
+      /* This was removed: overflow: hidden; */
       width: 100%;
       /* Ensure it fits */
     }
@@ -238,6 +239,7 @@
       position: relative;
       margin-top: 51px;
       /* Make space for avatar (Changed from 50px to 51px) */
+      overflow: hidden; /* <-- MOVED HERE. This clips the animations, not the avatar. */
     }
 
     .result-avatar {
@@ -263,6 +265,7 @@
       /* White border to "cut out" from card */
       overflow: hidden;
       /* For image */
+      z-index: 2; /* Ensure avatar is above card content */
     }
 
     .result-avatar img {
@@ -284,6 +287,8 @@
       display: inline-block;
       /* Allows background to wrap text */
       margin-bottom: 20px;
+      position: relative; /* To ensure it's above animations */
+      z-index: 1;
     }
 
     .result-card p {
@@ -291,6 +296,8 @@
       line-height: 1.6;
       margin-bottom: 30px;
       /* Space before button */
+      position: relative; /* To ensure it's above animations */
+      z-index: 1;
     }
 
     /* "Try Again" Button (Orange) */
