@@ -229,7 +229,7 @@
       width: 100%;
       border: 2px solid var(--color-bg-dark);
       border-radius: 20px;
-      padding-top: 20px;
+      padding-top: 30px; /* <-- CHANGED: Added more top padding */
       /* Space for avatar */
       padding-bottom: 30px;
       padding-left: 30px;
@@ -237,8 +237,7 @@
       background: var(--color-white);
       /* Avatar will sit on top */
       position: relative;
-      margin-top: 51px;
-      /* Make space for avatar (Changed from 50px to 51px) */
+      margin-top: 0; /* <-- CHANGED: Removed top margin */
       overflow: hidden; /* <-- MOVED HERE. This clips the animations, not the avatar. */
     }
 
@@ -255,17 +254,16 @@
       justify-content: center;
       font-size: 3.5rem;
       color: var(--color-white);
-      /* Position it half-overlapping the top */
-      position: absolute;
-      top: -75px;
-      /* Half its height */
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid var(--color-white);
-      /* White border to "cut out" from card */
+      /* --- ALL POSITIONING REMOVED --- */
+      /* position: absolute; NO LONGER ABSOLUTE */
+      /* top: -75px; */
+      /* left: 50%; */
+      /* transform: translateX(-50%); */
+      /* border: 6px solid var(--color-white); */
       overflow: hidden;
       /* For image */
-      z-index: 2; /* Ensure avatar is above card content */
+      /* z-index: 2; */
+      margin: 0 auto; /* <-- ADDED: This centers the avatar inside the card */
     }
 
     .result-avatar img {
@@ -282,8 +280,7 @@
       padding: 12px 20px;
       border-radius: 12px;
       /* Pill shape */
-      margin-top: 85px;
-      /* Space below avatar */
+      margin-top: 20px; /* <-- CHANGED: Reduced margin, as avatar is now inside */
       display: inline-block;
       /* Allows background to wrap text */
       margin-bottom: 20px;
