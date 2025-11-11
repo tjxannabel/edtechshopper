@@ -5,82 +5,83 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Which EdTech Shopper Are You?</title>
-  <!-- Using a cute, bubbly font -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Google Font: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* --- Root Variables --- */
     :root {
-      /* Cute pastel color scheme from the poster */
-      --color-bg-light: #f0f4ff;
-      /* Light blue bg */
-      --color-bg-dark: #e0e7ff;
-      /* Slightly darker blue */
-      --color-primary: #a78bfa;
+      /* Kawaii Pastel Color Palette from the poster */
+      --color-bg-light: #f0f9ff;
+      /* Lightest blue */
+      --color-bg-dark: #dbeafe;
+      /* Light blue */
+      --color-primary: #c4b5fd;
       /* Purple */
-      --color-secondary: #6ee7b7;
+      --color-secondary: #a7f3d0;
       /* Mint */
-      --color-accent: #f472b6;
+      --color-accent: #f9a8d4;
       /* Pink */
-      --color-accent-alt: #fde047;
-      /* Yellow */
-      --color-text: #5a5a8a;
-      /* Dark purple text */
+      --color-accent-orange: #fcd34d;
+      /* Yellow/Orange from poster */
+      --color-text: #4b5563;
+      /* Dark gray */
       --color-white: #ffffff;
-      --font-family-main: 'Fredoka', sans-serif;
+
+      /* Fonts */
+      --font-primary: 'Poppins', sans-serif;
     }
 
-    /* Basic Reset */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    /* --- Base Styles --- */
     body {
-      font-family: var(--font-family-main);
+      font-family: var(--font-primary);
       background: linear-gradient(135deg, var(--color-bg-light), var(--color-bg-dark));
       margin: 0;
       padding: 20px;
+      /* Added padding for mobile */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      /* Ensures padding doesn't cause overflow */
+    }
+
+    /* --- Main Container --- */
+    .story-container {
+      background: var(--color-white);
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      /* Was 95%, now 100% to fill padded body */
+      text-align: center;
+      overflow: hidden;
+      /* Hides intro screen overflow */
+      box-sizing: border-box;
+      /* Include padding in width */
+    }
+
+    /* --- NEW: Intro Screen (Poster Style) --- */
+    #intro-screen {
+      padding: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      color: var(--color-text);
-    }
-
-    /* Main container for the app */
-    #story-container {
-      background: var(--color-white);
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-      padding: 24px;
-      width: 100%;
-      /* Make it full-width on mobile */
-      max-width: 500px;
-      /* Max width on desktop */
-      text-align: center;
-      /* Ensure border-box is set for correct sizing on mobile */
+      background: linear-gradient(135deg, #f0f9ff, #dbeafe);
       box-sizing: border-box;
-      overflow: hidden;
-      /* To contain animations */
-    }
-
-    /* --- NEW: Intro Screen --- */
-    #intro-screen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 0.8s ease;
-      /* Ensure border-box is set for correct sizing on mobile */
-      box-sizing: border-box;
+      /* Include padding in width */
     }
 
     .intro-avatar {
       width: 150px;
-      /* 20% larger than 125px */
+      /* 20% larger: 125px -> 150px */
       height: 150px;
-      /* 20% larger than 125px */
+      /* 20% larger: 125px -> 150px */
       background-color: var(--color-secondary);
+      /* Mint */
       border-radius: 25px;
       /* Rounded square */
       display: flex;
@@ -89,9 +90,8 @@
       font-size: 3.5rem;
       color: var(--color-white);
       margin-bottom: 20px;
-      /* Added for image */
       overflow: hidden;
-      /* To contain image */
+      /* For image */
     }
 
     .intro-avatar img {
@@ -101,126 +101,138 @@
     }
 
     #intro-screen h1 {
-      font-size: 4rem;
-      font-weight: 600;
-      /* Use purple gradient */
-      background: linear-gradient(45deg, var(--color-primary), #c084fc);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+      /* Purple gradient */
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 1;
       margin: 0;
+      line-height: 1;
     }
 
     #intro-screen h2 {
-      font-size: 1.5rem;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: 600;
       color: var(--color-primary);
-      margin-top: 5px;
+      margin: 5px 0 15px;
+      letter-spacing: 0.5px;
     }
 
     #intro-screen p {
       font-size: 1rem;
-      color: var(--color-text);
-      margin-top: 10px;
-      margin-bottom: 25px;
+      color: var(--color-primary);
+      margin-bottom: 30px;
     }
 
     .start-button {
-      font-family: var(--font-family-main);
-      font-size: 1.1rem;
-      font-weight: 500;
+      background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+      /* Purple gradient */
       color: var(--color-white);
-      /* Use purple gradient */
-      background: linear-gradient(45deg, var(--color-primary), #c084fc);
       border: none;
       border-radius: 50px;
       /* Pill shape */
-      padding: 15px 35px;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      /* Purple glow shadow */
-      box-shadow: 0 4px 20px rgba(167, 139, 250, 0.5);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px -5px #c4b5fd;
+      /* Purple shadow */
     }
 
     .start-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(167, 139, 250, 0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px -8px #c4b5fd;
     }
 
-    /* --- Quiz Screen (was .quiz-container) --- */
+
+    /* --- Quiz Screen --- */
     #quiz-screen {
       display: none;
-      /* Hide by default */
-      width: 100%;
-      animation: fadeIn 0.8s ease;
+      /* Hidden by default */
+      padding: 40px;
+      box-sizing: border-box;
+      /* Include padding in width */
     }
 
-    /* Progress Bar */
+    /* --- Progress Bar --- */
     .progress-bar-container {
       width: 100%;
-      background: var(--color-bg-dark);
-      border-radius: 50px;
-      height: 15px;
-      margin-bottom: 25px;
+      height: 12px;
+      background-color: #eee;
+      border-radius: 6px;
+      margin-bottom: 30px;
       overflow: hidden;
     }
 
     #progress-bar {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-alt));
-      border-radius: 50px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-orange));
+      border-radius: 6px;
       transition: width 0.4s ease;
     }
 
-    /* Quiz Content */
+    /* --- Question & Answers --- */
+    .question-container {
+      min-height: 80px;
+      /* Prevents layout jump */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .question {
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin-bottom: 25px;
-      line-height: 1.4;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.6;
+      margin-bottom: 30px;
     }
 
     .answers {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      /* Adds space between buttons */
+      gap: 15px;
     }
 
     .answers button {
-      font-family: var(--font-family-main);
-      font-size: 1rem;
-      background: var(--color-bg-light);
-      border: 2px solid var(--color-bg-dark);
-      border-radius: 16px;
-      padding: 18px;
+      background: #f8faff;
+      border: 2px solid #e0e7ff;
+      border-radius: 15px;
+      padding: 18px 20px;
       width: 100%;
       cursor: pointer;
-      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 500;
       color: var(--color-text);
-      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      text-align: left;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      /* Include padding/border in width */
     }
 
     .answers button:hover {
       background: var(--color-white);
       border-color: var(--color-primary);
       transform: scale(1.02);
+      box-shadow: 0 4px 15px rgba(196, 181, 253, 0.4);
     }
 
     /* --- Result "Card" Styling --- */
-    /* This outer container holds the result card and buttons */
-    /* It is NOT the visual card itself */
     .result-card {
       display: none;
       /* Hidden by default */
       flex-direction: column;
       align-items: center;
+      padding: 40px;
+      box-sizing: border-box;
       animation: fadeIn 0.8s ease;
       position: relative;
-      /* This was removed: overflow: hidden; */
-      width: 100%;
-      /* Ensure it fits */
+      /* For animation positioning */
     }
 
     /* This is the inner container for the result content */
@@ -229,23 +241,37 @@
       width: 100%;
       border: 2px solid var(--color-bg-dark);
       border-radius: 20px;
-      padding-top: 30px; /* <-- CHANGED: Added more top padding */
-      /* Space for avatar */
-      padding-bottom: 30px;
-      padding-left: 30px;
-      padding-right: 30px;
+      padding: 30px;
+      /* Unified padding */
       background: var(--color-white);
       /* Avatar will sit on top */
       position: relative;
-      margin-top: 0; /* <-- CHANGED: Removed top margin */
-      overflow: hidden; /* <-- MOVED HERE. This clips the animations, not the avatar. */
+      margin-top: 0;
+      /* Avatar sits inside */
+      box-sizing: border-box;
+      /* Ensure padding is included */
     }
+
+    /* NEW: Container for animations, so avatar isn't clipped */
+    .animation-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      /* Match parent */
+      overflow: hidden;
+      /* This clips the animations */
+      z-index: 0;
+    }
+
 
     .result-avatar {
       width: 150px;
-      /* 20% larger */
+      /* 20% larger: 125px -> 150px */
       height: 150px;
-      /* 20% larger */
+      /* 20% larger: 125px -> 150px */
       background-color: var(--color-secondary);
       border-radius: 25px;
       /* Rounded square */
@@ -254,16 +280,16 @@
       justify-content: center;
       font-size: 3.5rem;
       color: var(--color-white);
-      /* --- ALL POSITIONING REMOVED --- */
-      /* position: absolute; NO LONGER ABSOLUTE */
-      /* top: -75px; */
-      /* left: 50%; */
-      /* transform: translateX(-50%); */
-      /* border: 6px solid var(--color-white); */
       overflow: hidden;
       /* For image */
-      /* z-index: 2; */
-      margin: 0 auto; /* <-- ADDED: This centers the avatar inside the card */
+      margin: 0 auto;
+      /* Centers the avatar INSIDE the card */
+      margin-bottom: 20px;
+      /* Space below avatar */
+      position: relative;
+      /* To sit above animations */
+      z-index: 1;
+      /* To sit above animations */
     }
 
     .result-avatar img {
@@ -276,134 +302,149 @@
       font-size: 1.4rem;
       font-weight: 600;
       color: var(--color-white);
-      /* To contrast with bg */
       padding: 12px 20px;
       border-radius: 12px;
       /* Pill shape */
-      margin-top: 20px; /* <-- CHANGED: Reduced margin, as avatar is now inside */
+      margin-top: 0;
+      /* Reset margin */
       display: inline-block;
       /* Allows background to wrap text */
-      margin-bottom: 20px;
-      position: relative; /* To ensure it's above animations */
       z-index: 1;
+      /* Above animations */
+      position: relative;
+      /* For z-index */
     }
 
     .result-card p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 30px;
-      /* Space before button */
-      position: relative; /* To ensure it's above animations */
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--color-text);
+      margin: 15px 0 30px;
       z-index: 1;
+      /* Above animations */
+      position: relative;
+      /* For z-index */
     }
 
-    /* "Try Again" Button (Orange) */
-    .retry-button {
-      font-family: var(--font-family-main);
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--color-text);
-      background: linear-gradient(45deg, var(--color-accent-alt), #fbc02d);
-      /* Yellow/Orange */
+    .retry-button,
+    .other-shoppers-button,
+    .back-button {
       border: none;
       border-radius: 50px;
-      padding: 14px 30px;
+      /* Pill shape */
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 20px rgba(253, 224, 71, 0.5);
-      margin-top: 10px;
+      transition: all 0.3s ease;
       width: 80%;
       max-width: 300px;
+      box-sizing: border-box;
+      /* Include padding in width */
+    }
+
+    .retry-button {
+      background: linear-gradient(135deg, var(--color-accent-orange), #fde047);
+      /* Yellow/Orange */
+      color: #854d0e;
+      /* Dark brown-yellow */
+      box-shadow: 0 4px 15px -5px #fcd34d;
+      margin-top: 10px;
+      /* Was 30px, reduced */
     }
 
     .retry-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(253, 224, 71, 0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px -8px #fcd34d;
     }
 
-    /* --- "Meet the Other Shoppers" Button (Purple) --- */
     .other-shoppers-button {
-      font-family: var(--font-family-main);
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--color-white);
-      background: linear-gradient(45deg, var(--color-primary), #c084fc);
+      background: linear-gradient(135deg, var(--color-primary), #a78bfa);
       /* Purple */
-      border: none;
-      border-radius: 50px;
-      padding: 14px 30px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 20px rgba(167, 139, 250, 0.5);
+      color: var(--color-white);
+      box-shadow: 0 4px 15px -5px #c4b5fd;
       margin-top: 15px;
-      width: 80%;
-      max-width: 300px;
+      /* Add space */
     }
 
     .other-shoppers-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(167, 139, 250, 0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px -8px #c4b5fd;
     }
 
-    /* Custom styles for each result card title */
+
+    /* Custom styles for each result card, pastel theme */
     #result-moe h2 {
-      background-color: var(--color-primary);
+      background-color: #a78bfa;
     }
 
     /* Purple */
     #result-convenience h2 {
-      background-color: var(--color-secondary);
+      background-color: #6ee7b7;
     }
 
     /* Mint */
     #result-more h2 {
-      background-color: var(--color-accent);
+      background-color: #f472b6;
     }
 
     /* Pink */
     #result-hybrid h2 {
-      background: linear-gradient(45deg, var(--color-primary), var(--color-accent));
+      background-color: #f9a8d4;
     }
 
-    /* Grad */
+    /* Pink */
 
-    /* --- "All Shoppers" Screen --- */
+    /* --- NEW: "All Shoppers" Screen --- */
     #all-shoppers-screen {
       display: none;
       /* Hidden by default */
-      width: 100%;
+      padding: 40px;
+      box-sizing: border-box;
       animation: fadeIn 0.8s ease;
     }
 
     #all-shoppers-screen h2 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: var(--color-primary);
-      margin-bottom: 25px;
+      margin-top: 0;
+      margin-bottom: 30px;
     }
 
     .all-shoppers-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      /* Two columns */
-      gap: 15px;
-      margin-bottom: 25px;
+      grid-template-columns: repeat(2, 1fr);
+      /* 2 columns */
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    /* Responsive grid: 1 column on small screens */
+    @media (max-width: 480px) {
+      .all-shoppers-grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     .mini-card {
-      background: var(--color-bg-light);
-      border-radius: 16px;
-      padding: 15px;
-      border: 2px solid var(--color-bg-dark);
+      background: #f8faff;
+      border: 2px solid #e0e7ff;
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .mini-card-avatar {
       width: 80px;
       height: 80px;
-      border-radius: 18px;
+      border-radius: 20px;
       /* Rounded square */
+      background-color: var(--color-secondary);
+      margin-bottom: 15px;
       overflow: hidden;
-      margin: 0 auto 10px auto;
     }
 
     .mini-card-avatar img {
@@ -417,6 +458,8 @@
       font-weight: 600;
       color: var(--color-text);
       line-height: 1.3;
+      margin: 0;
+      /* Reset margin */
     }
 
     /* --- NEW: Style for mini-card description --- */
@@ -427,36 +470,41 @@
       line-height: 1.4;
       margin-top: 8px;
       /* Add some space */
+      margin-bottom: 0;
+      /* Reset margin */
     }
+
 
     /* Back Button (styled like retry button) */
     .back-button {
-      font-family: var(--font-family-main);
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--color-text);
-      background: linear-gradient(45deg, var(--color-accent-alt), #fbc02d);
-      border: none;
-      border-radius: 50px;
-      padding: 14px 30px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 20px rgba(253, 224, 71, 0.5);
-      width: 80%;
-      max-width: 300px;
+      background: linear-gradient(135deg, var(--color-accent-orange), #fde047);
+      /* Yellow/Orange */
+      color: #854d0e;
+      /* Dark brown-yellow */
+      box-shadow: 0 4px 15px -5px #fcd34d;
     }
 
     .back-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(253, 224, 71, 0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px -8px #fcd34d;
     }
 
 
-    /* --- Falling Animation Styles --- */
+    /* --- Animations --- */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* This keyframe defines the "float down" animation */
     @keyframes floatDown {
       0% {
         transform: translateY(0);
-        /* Start at the top */
         opacity: 1;
       }
 
@@ -467,6 +515,7 @@
       }
     }
 
+    /* This is the style for a single floating item (a bag or sparkle) */
     .floating-item {
       position: absolute;
       top: -50px;
@@ -479,49 +528,17 @@
       z-index: 0;
       /* Keep it behind the text */
     }
-
-
-    /* --- Utility Animations --- */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 400px) {
-      .all-shoppers-grid {
-        grid-template-columns: 1fr;
-        /* Single column on very small screens */
-      }
-
-      .result-card h2 {
-        font-size: 1.2rem;
-      }
-
-      .result-card p {
-        font-size: 1rem;
-      }
-    }
   </style>
 </head>
 
 <body>
-
   <!-- Main container for the app -->
-  <div id="story-container">
+  <div class="story-container">
 
     <!-- NEW: Intro Screen, styled to look like the poster -->
     <div id="intro-screen">
-      <div class="intro-avatar" id="intro-avatar-container">
-        <!-- Avatar content (text or img) will be set by JS -->
-      </div>
+      <!-- Avatar will be set by JS -->
+      <div class="intro-avatar" id="intro-avatar-container">( ᴗ )</div>
       <h1>11:11</h1>
       <h2>EDTECH SUPER SALE!</h2>
       <p>FIND YOUR SHOPPING STYLE!</p>
@@ -530,26 +547,27 @@
       </button>
     </div>
 
-    <!-- This div holds the quiz questions and answers -->
+    <!-- This div holds the quiz questions -->
     <div id="quiz-screen">
       <div class="progress-bar-container">
         <div id="progress-bar"></div>
       </div>
       <div id="quiz-content">
-        <!-- Question and answers will be injected here -->
+        <div class="question-container">
+          <p class="question" id="question-text"></p>
+        </div>
+        <div class="answers" id="answer-buttons"></div>
       </div>
     </div>
 
     <!-- This div holds the final result "card" -->
-    <div id="result" class="result-card">
-      <!-- Result content will be injected here -->
-    </div>
+    <div id="result" class="result-card"></div>
 
     <!-- --- NEW: This div holds the "All Shoppers" page --- -->
     <div id="all-shoppers-screen">
       <h2>Meet the Shoppers!</h2>
       <div class="all-shoppers-grid" id="all-shoppers-grid">
-        <!-- Mini-cards will be injected here -->
+        <!-- Mini-cards will be injected by JS -->
       </div>
       <button class="back-button" onclick="backToResult()">Back to My Result</button>
     </div>
@@ -557,161 +575,135 @@
   </div>
 
   <script>
-    // --- DOM Elements ---
+    // --- EXISTING: DOM Element Selection ---
     const introScreen = document.getElementById('intro-screen');
     const quizScreen = document.getElementById('quiz-screen');
+    const startQuizButton = document.getElementById('start-quiz-button');
+    const progressBar = document.getElementById('progress-bar');
+    const questionText = document.getElementById('question-text');
+    const answerButtons = document.getElementById('answer-buttons');
     const resultContainer = document.getElementById('result');
+    const quizContentContainer = document.getElementById('quiz-content');
+    const introAvatarContainer = document.getElementById('intro-avatar-container');
     const allShoppersScreen = document.getElementById('all-shoppers-screen');
     const allShoppersGrid = document.getElementById('all-shoppers-grid');
-    const startButton = document.getElementById('start-quiz-button');
-    const quizContentContainer = document.getElementById('quiz-content');
-    const progressBar = document.getElementById('progress-bar');
-    const introAvatarContainer = document.getElementById('intro-avatar-container');
 
-    // --- NEW: Master Shopper Definitions ---
-    // This object holds all data for the shopper types
+    // --- NEW: Configurable Image URL for Intro ---
+    // Leave as "" to use the default text avatar ( ᴗ )
+    // Or, set to a URL like "intro-cat.png"
+    const introImageUrl = "intro-cat.png";
+
+    // --- NEW: Master list of all shopper types ---
+    // This is now the single source of truth for all result data
     const allShopperTypes = {
       moe: {
-        id: 'moe',
-        title: '💙 You’re the “MOE-mall” Shopper!',
-        message: 'You love trusted, curriculum-aligned gems and the safety of MOE-endorsed tools!',
-        avatar: 'revised-safe-shopper-cat.png',
-        shortTitle: '“MOE-mall” Shopper'
+        id: "moe",
+        title: "💙 You’re the “MOE-mall” Shopper!",
+        shortTitle: "“MOE-mall” Shopper",
+        message: "You love trusted, curriculum-aligned gems and the safety of MOE-endorsed tools!",
+        avatar: "revised-safe-shopper-cat.png"
       },
       convenience: {
-        id: 'convenience',
-        title: '🎯 You’re the “I want diversity through SLS” Shopper!',
-        message: 'You thrive when everything just works seamlessly through SLS – efficiency is your superpower!',
-        avatar: 'revised-convenience-cat.png',
-        shortTitle: '“Diversity through SLS” Shopper'
+        id: "convenience",
+        title: "🎯 You’re the “I want diversity through SLS” Shopper!",
+        shortTitle: "“I want diversity through SLS” Shopper",
+        message: "You thrive when everything just works seamlessly through SLS – efficiency is your superpower!",
+        avatar: "revised-convenience-cat.png"
       },
       more: {
-        id: 'more',
-        title: '🛍️ You’re the “More is More” Shopper!',
-        message: 'You love exploring every corner of EdTech, building your own vibrant EdTech ecosystem!',
-        avatar: 'revised-more-more-more-cat.png',
-        shortTitle: '“More is More” Shopper'
+        id: "more",
+        title: "🛍️ You’re the “More is More” Shopper!",
+        shortTitle: "“More is More” Shopper",
+        message: "You love exploring every corner of EdTech, building your own vibrant EdTech ecosystem!",
+        avatar: "revised-more-more-more-cat.png"
       },
       hybrid: {
-        id: 'hybrid',
-        title: '💫 You’re a “Mega Bundle” Shopper!',
-        message: 'You blend the best of all worlds – balancing trusted tools, seamless integrations, and your adventurous EdTech spirit!',
-        avatar: 'bundle-boss-cat.png',
-        shortTitle: '“Mega Bundle” Shopper'
+        id: "hybrid",
+        title: "💫 You’re the “Mega Bundle” Shopper!",
+        shortTitle: "“Mega Bundle” Shopper",
+        message: "You blend the best of all worlds – balancing trusted SLS tools, seamless integrations, and your adventurous EdTech spirit!",
+        avatar: "bundle-boss-cat.png"
       }
     };
 
-    // --- NEW: Customizable Intro Avatar ---
-    // If you put a URL here, it'll use the image.
-    // If you leave it blank (""), it'll use the text avatar.
-    let introImageUrl = "intro-cat.png";
-
-    // --- EXISTING: Quiz Data (7 Questions) ---
+    // --- EXISTING: Quiz variables ---
     const quizData = [{
-      question: "You’re shopping for EdTech tool to use in your next term’s lessons 📱💥 What do you do first?",
+      question: "You’re shopping for EdTech tool or resource to use in your next term’s lessons📱💥 What do you do first?",
       answers: {
         moe: "Check out MOE library for those golden lesson treasures that tick all the curriculum boxes.",
-        convenience: "Scout for lesson tools that work smoothly within SLS.",
-        more: "Go wild browsing everywhere for the most exciting EdTech tools."
+        convenience: "Check out the list of whitelisted tools.",
+        more: "Go wild browsing everywhere for the most exciting and appropriate EdTech tools."
       }
-    },
-    {
+    }, {
       question: "Oooh, a shiny new teaching tool on sale ✨ What pops into your head first?",
       answers: {
-        moe: "Is this pedagogically sound and does it align with MOE curriculum standards?",
+        moe: "Are they as good as what MOE develops? (Is this pedagogically sound and does it align with MOE standards?)",
         convenience: "Sweet! Can my students use this without hopping out of SLS?",
-        more: "This looks amazing! I hope I’m one of the first to try it!"
+        more: "This looks amazing! Let me explore it now!"
       }
-    },
-    {
-      question: "AI ASSISTANT BONANZA! 🤖 Smart teaching helper tools promise to be your ultimate classroom sidekick. Which wins your heart?",
+    }, {
+      question: "AI ASSISTANT BONANZA! 🤖 You are looking or a \"smart\" EdTech tool to be your ultimate classroom sidekick. Which wins your heart?",
       answers: {
-        moe: "AI sidekicks that play by MOE rules and keep my data cozy and safe.",
-        convenience: "AI assistants that can be embedded in SLS to free up class time.",
-        more: "AI superstars from different platforms – I want one for every task!"
+        moe: "This AI tool in SLS was developed by MOE. Looks good! I also have ready resources and guide that can help with use.",
+        convenience: "This AI assistant can be embedded in SLS! This is the one for me!",
+        more: "Let me try them for myself! Then, I'll see if they can be part of my lesson."
       }
-    },
-    {
+    }, {
       question: "Collaboration revolution alert! 🚀 Your students need the ultimate group project experience. What’s calling your name?",
       answers: {
         moe: "SLS tools to support everything from brainstorming to final presentation.",
         convenience: "Collaboration tools that nestle perfectly within SLS for smooth teamwork and execution.",
         more: "A dynamic mix of apps for ideation, project management and presentation – I use them all!"
       }
-    },
-    {
+    }, {
       question: "Multimedia deals! 🎬 Time to transform learning with visual simulations. What do you grab?",
       answers: {
         moe: "Trusted media gems from MOE library & Community Gallery that slot perfectly into lessons every time!",
         convenience: "Third-party visual goodies that complement SLS lessons for a comprehensive learning experience all in place!",
         more: "A little bit of everything! I love to customise to suit my lesson needs."
       }
-    },
-    {
+    }, {
       question: "MEGA DEAL: Gamified lesson bundles promise 300% more participation! 🎯 What grabs your attention?",
       answers: {
         moe: "SLS customisable gamification features that track student progress seamlessly.",
         convenience: "External tools that provide unique gamified learning experience while maintaining my lesson flow on SLS to capture learning data.",
         more: "Trending gamification tools that are the talk-of-the-town!"
       }
-    },
-    {
+    }, {
       question: "Feedback revolution time! 💫 Transform how you respond to student work. Which exclusive bundle tempts you?",
       answers: {
         moe: "SLS AI feedback wizards that deliver personalised responses using my trusted rubrics.",
         convenience: "Feedback tools that fit neatly into SLS lessons, providing amazing marking convenience and quick data insights.",
         more: "The mega feedback bundle for every possible assignment, so I'm always equipped with the best feedback companion!"
       }
-    }
-      // Question 8 was removed
-    ];
+    }, ];
 
-    // --- Quiz State ---
     let currentQuestion = 0;
     let scores = {
       moe: 0,
       convenience: 0,
       more: 0
     };
-    let userResultId = ''; // Store the user's result to return to it
 
-    // --- Event Listeners ---
-    startButton.addEventListener('click', startQuiz);
-    window.addEventListener('load', setupIntroAvatar); // Set up avatar on load
-
-
-    // --- Functions ---
-
-    // NEW: Sets up the intro avatar (image or text)
+    // --- NEW: Function to handle Intro Avatar ---
     function setupIntroAvatar() {
-      if (introImageUrl && introImageUrl.trim() !== "") {
-        introAvatarContainer.innerHTML = `<img src="${introImageUrl}" alt="Quiz Avatar">`;
+      if (introImageUrl) {
+        introAvatarContainer.innerHTML = `<img src="${introImageUrl}" alt="Intro Avatar">`;
+        introAvatarContainer.style.backgroundColor = 'transparent'; // Remove bg if image is used
       } else {
         introAvatarContainer.innerHTML = '( ᴗ )';
+        introAvatarContainer.style.backgroundColor = 'var(--color-secondary)';
       }
     }
 
-    // NEW: Function to start the quiz
-    function startQuiz() {
-      // Reset state
-      currentQuestion = 0;
-      scores = {
-        moe: 0,
-        convenience: 0,
-        more: 0
-      };
-      userResultId = '';
-
-      // Fade out intro, fade in quiz
+    // --- NEW: Event Listener for Start Button ---
+    startQuizButton.addEventListener('click', () => {
       introScreen.style.display = 'none';
-      resultContainer.style.display = 'none';
-      allShoppersScreen.style.display = 'none';
       quizScreen.style.display = 'block';
-
       loadQuestion();
-    }
+    });
 
-    // NEW: Fisher-Yates shuffle algorithm
+    // --- NEW: Function to shuffle an array (Fisher-Yates) ---
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -720,54 +712,54 @@
       return array;
     }
 
+    // --- EXISTING: Load Question (Updated) ---
     function loadQuestion() {
       if (currentQuestion < quizData.length) {
-        const q = quizData[currentQuestion];
-        const questionText = q.question;
-        const answers = q.answers;
-
-        // --- NEW: Shuffle the answer keys ---
-        let answerKeys = ['moe', 'convenience', 'more'];
-        answerKeys = shuffleArray(answerKeys);
-
-        // Build the HTML for the buttons in the new shuffled order
-        let answersHtml = '<div class="answers">';
-        answerKeys.forEach(key => {
-          answersHtml += `<button onclick="selectAnswer('${key}')">${answers[key]}</button>`;
-        });
-        answersHtml += '</div>';
-
-        // Update the quiz content
-        quizContentContainer.innerHTML = `
-          <div class="question">${questionText}</div>
-          ${answersHtml}
-        `;
-
-        // Update progress bar
+        // Update Progress Bar
         const progress = ((currentQuestion + 1) / quizData.length) * 100;
         progressBar.style.width = `${progress}%`;
 
+        const q = quizData[currentQuestion];
+        questionText.innerText = q.question;
+        answerButtons.innerHTML = ''; // Clear old answers
+
+        // --- NEW: Shuffle answer keys ---
+        const answerKeys = shuffleArray(Object.keys(q.answers));
+
+        // Create buttons based on shuffled order
+        answerKeys.forEach(key => {
+          const button = document.createElement('button');
+          button.innerText = q.answers[key];
+          button.addEventListener('click', () => selectAnswer(key));
+          answerButtons.appendChild(button);
+        });
       } else {
+        // --- NEW: Hide quiz, show result ---
+        quizScreen.style.display = 'none';
+        resultContainer.style.display = 'flex'; // Use flex to match .result-card style
         showResult();
       }
     }
 
+    // --- EXISTING: Select Answer (No change) ---
     function selectAnswer(type) {
       scores[type]++;
       currentQuestion++;
       loadQuestion();
     }
 
+    // --- EXISTING: Show Result (Updated) ---
     function showResult() {
       const maxScore = Math.max(scores.moe, scores.convenience, scores.more);
-      const topCategories = Object.keys(scores).filter(k => scores[k] === maxScore);
+      const topCategories = Object.keys(scores).filter(k => scores[k] === maxScore && k !== 'hybrid');
 
       let resultId = '';
 
       if (topCategories.length > 1) {
-        // Tie-breaker
+        // Tie goes to hybrid
         resultId = 'hybrid';
       } else {
+        // Clear winner
         const topCat = topCategories[0];
         if (topCat === 'moe') {
           resultId = 'moe';
@@ -778,15 +770,13 @@
         }
       }
 
-      userResultId = resultId; // Store this result
+      // Get the result data from our master list
       const userResult = allShopperTypes[resultId];
-
-      // Hide quiz and show result
-      quizScreen.style.display = 'none';
 
       // --- REVERTED: Simplified HTML for main result card ONLY ---
       resultContainer.innerHTML = `
         <div id="result-${userResult.id}">
+          <div class="animation-container"></div> <!-- NEW container for animations -->
           <div class="result-avatar">
             <img src="${userResult.avatar}" alt="${userResult.title}">
           </div>
@@ -814,42 +804,55 @@
       allShoppersGrid.innerHTML = allShoppersHTML;
 
 
-      // --- NEW: Add floating animations ---
-      const resultCardDiv = document.getElementById(`result-${userResult.id}`);
-      if (resultCardDiv) {
+      // --- NEW: Trigger animations ---
+      // Find the animation container that was just created
+      const animationContainer = resultContainer.querySelector(".animation-container");
+      if (animationContainer) {
+
+        // Create 15 floating items
         for (let i = 0; i < 15; i++) {
           const item = document.createElement('div');
           item.className = 'floating-item';
-          item.innerText = (userResult.id === 'more') ? '🛍️' : '✨';
+
+          // Use the shopping bag 🛍️ icon for the "More" result
+          if (resultId === 'more') {
+            item.innerText = '🛍️';
+          } else {
+            item.innerText = '✨'; // Sparkles for other results
+          }
+
+          // Randomize the item's horizontal start, delay, and speed
           item.style.left = `${Math.random() * 100}%`;
           item.style.animationDelay = `${Math.random() * 5}s`;
-          item.style.animationDuration = `${5 + Math.random() * 5}s`;
-          resultCardDiv.appendChild(item);
+          item.style.animationDuration = `${5 + Math.random() * 5}s`; // 5-10s duration
+
+          // Add the new item to the animation container
+          animationContainer.appendChild(item);
         }
       }
-
-      // Finally, display the result container
-      resultContainer.style.display = 'flex';
     }
 
-    // NEW: Function to restart the quiz (back to intro)
+    // --- NEW: Function to restart quiz ---
     function restartQuiz() {
-      // Hide all other screens
-      resultContainer.style.display = 'none';
-      quizScreen.style.display = 'none';
-      allShoppersScreen.style.display = 'none';
-
-      // Reset progress bar
+      // Reset scores and question
+      scores = {
+        moe: 0,
+        convenience: 0,
+        more: 0
+      };
+      currentQuestion = 0;
       progressBar.style.width = '0%';
 
-      // Setup intro avatar again (in case it was an image)
-      setupIntroAvatar();
+      // Hide results, show intro screen
+      resultContainer.style.display = 'none';
+      allShoppersScreen.style.display = 'none'; // Also hide this screen
+      introScreen.style.display = 'flex'; // Use flex to match intro-screen style
 
-      // Show intro screen
-      introScreen.style.display = 'flex';
+      // Reset intro avatar (in case it was an image)
+      setupIntroAvatar();
     }
 
-    // --- NEW: Functions to toggle "All Shoppers" page ---
+    // --- NEW: Functions to toggle "All Shoppers" screen ---
     function showAllShoppers() {
       resultContainer.style.display = 'none';
       allShoppersScreen.style.display = 'block';
@@ -857,10 +860,12 @@
 
     function backToResult() {
       allShoppersScreen.style.display = 'none';
-      resultContainer.style.display = 'flex';
+      resultContainer.style.display = 'flex'; // Use flex
     }
-  </script>
 
+    // --- NEW: Initial setup call ---
+    setupIntroAvatar(); // Run this on page load
+  </script>
 </body>
 
 </html>
